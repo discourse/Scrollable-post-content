@@ -4,3 +4,5 @@ Content_height:
     en: "Set the desired height for scollable content in pixles - e.g 300 - Units are not needed."
 Scrollable_content_button_icon:
   default: "file-invoice"
+  description:
+    en: "Choose the icon for the scrollable content button in the composer"
