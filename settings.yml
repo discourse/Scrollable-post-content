@@ -1,0 +1,6 @@
+Content_height:
+  default: 300
+  description:
+    en: "Set the desired height for scollable content in pixles - e.g 300 - Units are not needed."
+Scrollable_content_button_icon:
+  default: "file-invoice"

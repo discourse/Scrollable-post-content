@@ -1,0 +1,49 @@
+<script type="text/discourse-plugin" version="0.8">
+  const iconHTML = require("discourse-common/lib/icon-library").iconHTML,
+    currentLocale = I18n.currentLocale(),
+    scrollable_selector = 'div[data-theme-scrollable="true"]';
+
+  I18n.translations[currentLocale].js.composer.scrollable_content_text = "";
+
+  $.fn.scrollable = function() {
+    if (!this.length) return this;
+    this.each(function() {
+      $(this)
+        .addClass("scrollable-content")
+        .html(
+          `<div class="scrollable-content-inner">
+            ${$(this).html()}
+          </div>`
+        )
+        .addClass("scrollable-initialized");
+    });
+    return this;
+  };
+  api.decorateCooked($elem =>
+    $elem
+      .children(scrollable_selector)
+      .not(".scrollable-initialized")
+      .scrollable()
+  );
+
+  api.addToolbarPopupMenuOptionsCallback(() => {
+    return {
+      action: "insertScrollableContent",
+      icon: settings.Scrollable_content_button_icon,
+      label: themePrefix("insert_scrollable_content")
+    };
+  });
+
+  api.modifyClass("controller:composer", {
+    actions: {
+      insertScrollableContent() {
+        this.get("toolbarEvent").applySurround(
+          '<div data-theme-scrollable="true">',
+          "</div>",
+          "scrollable_content_text",
+          { multiline: false }
+        );
+      }
+    }
+  });
+</script>

@@ -1,0 +1,29 @@
+@import "common/foundation/mixins";
+
+.scrollable-content {
+  @include post-aside;
+  padding: 1em 0.5em;
+  .scrollable-content-inner {
+    height: #{$Content_height}px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 20px;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      cursor: pointer;
+      border-radius: 0;
+      background: dark-light-choose($primary-medium, $secondary-medium);
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $primary-low;
+      border-radius: 0;
+      width: 6px;
+    }
+  }
+}
