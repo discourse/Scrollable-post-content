@@ -3,7 +3,13 @@
     currentLocale = I18n.currentLocale(),
     scrollable_selector = 'div[data-theme-scrollable="true"]';
 
-  I18n.translations[currentLocale].js.composer.scrollable_content_text = "";
+  if (I18n.translations[currentLocale].js.composer) {
+    I18n.translations[currentLocale].js.composer.scrollable_content_text = "";
+  } else {
+    I18n.translations[currentLocale].js.composer = {
+      scrollable_content_text: ""
+    }
+  }
 
   $.fn.scrollable = function() {
     if (!this.length) return this;
@@ -19,6 +25,7 @@
     });
     return this;
   };
+
   api.decorateCooked($elem =>
     $elem
       .children(scrollable_selector)
