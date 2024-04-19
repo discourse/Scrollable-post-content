@@ -1,9 +1,9 @@
-@import "common/foundation/variables";
-@import "common/foundation/mixins";
-
 .scrollable-content {
-  @include post-aside;
+  border-left: 5px solid var(--primary-300);
+  background-color: var(--blend-primary-secondary-5);
+
   padding: 1em 0.5em;
+
   .scrollable-content-inner {
     height: #{$Content_height}px;
     overflow-y: auto;
@@ -25,6 +25,18 @@
       background: $primary-low;
       border-radius: 0;
       width: 6px;
+    }
+  }
+}
+
+html.rtl {
+  .scrollable-content {
+    border-left: none;
+    border-right: 5px solid var(--primary-300);
+
+    .scrollable-content-inner {
+      padding-right: 0;
+      padding-left: 20px;
     }
   }
 }
