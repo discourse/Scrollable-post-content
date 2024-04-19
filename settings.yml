@@ -1,4 +1,4 @@
-Content_height:
+scrollable_content_height:
   default: 300
-Scrollable_content_button_icon:
+scrollable_content_button_icon:
   default: "file-invoice"

@@ -37,7 +37,7 @@ export default apiInitializer("1.14.0", (api) => {
         { multiline: false }
       );
     },
-    icon: settings.Scrollable_content_button_icon,
+    icon: settings.scrollable_content_button_icon,
     label: themePrefix("insert_scrollable_content"),
   });
 });
