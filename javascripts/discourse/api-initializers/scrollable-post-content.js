@@ -1,19 +1,21 @@
-<script type="text/discourse-plugin" version="0.8">
-  const iconHTML = require("discourse-common/lib/icon-library").iconHTML,
-    currentLocale = I18n.currentLocale(),
-    scrollable_selector = 'div[data-theme-scrollable="true"]';
+import { apiInitializer } from "discourse/lib/api";
+import I18n from "discourse-i18n";
+
+export default apiInitializer("0.8", (api) => {
+  (currentLocale = I18n.currentLocale()),
+    (scrollable_selector = 'div[data-theme-scrollable="true"]');
 
   if (I18n.translations[currentLocale].js.composer) {
     I18n.translations[currentLocale].js.composer.scrollable_content_text = "";
   } else {
     I18n.translations[currentLocale].js.composer = {
-      scrollable_content_text: ""
-    }
+      scrollable_content_text: "",
+    };
   }
 
-  $.fn.scrollable = function() {
+  $.fn.scrollable = function () {
     if (!this.length) return this;
-    this.each(function() {
+    this.each(function () {
       $(this)
         .addClass("scrollable-content")
         .html(
@@ -26,7 +28,7 @@
     return this;
   };
 
-  api.decorateCooked($elem =>
+  api.decorateCooked(($elem) =>
     $elem
       .children(scrollable_selector)
       .not(".scrollable-initialized")
@@ -37,7 +39,7 @@
     return {
       action: "insertScrollableContent",
       icon: settings.Scrollable_content_button_icon,
-      label: themePrefix("insert_scrollable_content")
+      label: themePrefix("insert_scrollable_content"),
     };
   });
 
@@ -50,7 +52,7 @@
           "scrollable_content_text",
           { multiline: false }
         );
-      }
-    }
+      },
+    },
   });
-</script>
+});
