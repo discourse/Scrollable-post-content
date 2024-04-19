@@ -1,58 +1,43 @@
 import { apiInitializer } from "discourse/lib/api";
 import I18n from "discourse-i18n";
 
-export default apiInitializer("0.8", (api) => {
-  (currentLocale = I18n.currentLocale()),
-    (scrollable_selector = 'div[data-theme-scrollable="true"]');
+export default apiInitializer("1.14.0", (api) => {
+  // This is a hack as applySurround expects a top level
+  // composer key, not possible from a theme.
+  const currentLocale = I18n.currentLocale();
 
-  if (I18n.translations[currentLocale].js.composer) {
-    I18n.translations[currentLocale].js.composer.scrollable_content_text = "";
-  } else {
-    I18n.translations[currentLocale].js.composer = {
-      scrollable_content_text: "",
-    };
+  if (!I18n.translations[currentLocale].js.composer) {
+    I18n.translations[currentLocale].js.composer = {};
   }
+  I18n.translations[currentLocale].js.composer.scrollable_content_text = "  ";
 
-  $.fn.scrollable = function () {
-    if (!this.length) return this;
-    this.each(function () {
-      $(this)
-        .addClass("scrollable-content")
-        .html(
-          `<div class="scrollable-content-inner">
-            ${$(this).html()}
-          </div>`
+  api.decorateCookedElement(
+    (element) => {
+      element
+        .querySelectorAll(
+          'div[data-theme-scrollable="true"]:not(.scrollable-initialized)'
         )
-        .addClass("scrollable-initialized");
-    });
-    return this;
-  };
-
-  api.decorateCooked(($elem) =>
-    $elem
-      .children(scrollable_selector)
-      .not(".scrollable-initialized")
-      .scrollable()
+        .forEach((scrollableElement) => {
+          scrollableElement.classList.add(
+            "scrollable-content",
+            "scrollable-initialized"
+          );
+          scrollableElement.innerHTML = `<div class="scrollable-content-inner">${scrollableElement.innerHTML}</div>`;
+        });
+    },
+    { id: "scrollable-post-content" }
   );
 
-  api.addToolbarPopupMenuOptionsCallback(() => {
-    return {
-      action: "insertScrollableContent",
-      icon: settings.Scrollable_content_button_icon,
-      label: themePrefix("insert_scrollable_content"),
-    };
-  });
-
-  api.modifyClass("controller:composer", {
-    actions: {
-      insertScrollableContent() {
-        this.get("toolbarEvent").applySurround(
-          '<div data-theme-scrollable="true">',
-          "</div>",
-          "scrollable_content_text",
-          { multiline: false }
-        );
-      },
+  api.addComposerToolbarPopupMenuOption({
+    action: (toolbarEvent) => {
+      toolbarEvent.applySurround(
+        '<div data-theme-scrollable="true">',
+        "</div>",
+        "scrollable_content_text",
+        { multiline: false }
+      );
     },
+    icon: settings.Scrollable_content_button_icon,
+    label: themePrefix("insert_scrollable_content"),
   });
 });
