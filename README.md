@@ -2,4 +2,4 @@
 
 This is a Discourse theme component that allows you to add scrollable sections in posts.
 
-More information: 
+More information: https://meta.discourse.org/t/scrollable-post-content/112479.
