@@ -1,2 +1,9 @@
 en:
+  theme_metadata:
+    description: "Adds scrollable sections in posts with one click!"
+    settings:
+      Content_height:
+        description: "Set the desired height for scollable content in pixles - e.g 300 - Units are not needed."
+      Scrollable_content_button_icon:
+        description: "Choose the icon for the scrollable content button in the composer"
   insert_scrollable_content: "Insert scrollable content"
