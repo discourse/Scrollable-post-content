@@ -30,6 +30,10 @@ export default apiInitializer("1.14.0", (api) => {
 
   api.addComposerToolbarPopupMenuOption({
     action: (toolbarEvent) => {
+      if (!toolbarEvent) {
+        return;
+      }
+      console.log("toolbarEvent", toolbarEvent);
       toolbarEvent.applySurround(
         '<div data-theme-scrollable="true">',
         "</div>",
