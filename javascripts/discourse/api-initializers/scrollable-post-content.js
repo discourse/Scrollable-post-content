@@ -33,7 +33,6 @@ export default apiInitializer("1.14.0", (api) => {
       if (!toolbarEvent) {
         return;
       }
-      console.log("toolbarEvent", toolbarEvent);
       toolbarEvent.applySurround(
         '<div data-theme-scrollable="true">',
         "</div>",
