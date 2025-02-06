@@ -1,10 +1,10 @@
 import { click, visit } from "@ember/test-helpers";
 import { test } from "qunit";
+import { cloneJSON } from "discourse/lib/object";
 import topicFixtures from "discourse/tests/fixtures/topic";
 import { acceptance } from "discourse/tests/helpers/qunit-helpers";
 import selectKit from "discourse/tests/helpers/select-kit-helper";
-import { cloneJSON } from "discourse-common/lib/object";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 
 acceptance("Scrollable post content", function (needs) {
   needs.user();
@@ -20,7 +20,7 @@ acceptance("Scrollable post content", function (needs) {
     await categoryChooser.selectRowByValue(2);
 
     await selectKit(".toolbar-popup-menu-options").expand();
-    const buttonSelector = `.select-kit-row[data-name='${I18n.t(
+    const buttonSelector = `.select-kit-row[data-name='${i18n(
       themePrefix("insert_scrollable_content")
     )}']`;
 
@@ -30,7 +30,7 @@ acceptance("Scrollable post content", function (needs) {
     assert
       .dom("textarea.d-editor-input")
       .hasValue(
-        `<div data-theme-scrollable="true">${I18n.t(
+        `<div data-theme-scrollable="true">${i18n(
           "composer.scrollable_content_text"
         )}</div>`
       );
