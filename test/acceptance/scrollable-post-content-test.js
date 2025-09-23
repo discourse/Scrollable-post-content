@@ -19,12 +19,9 @@ acceptance("Scrollable post content", function (needs) {
     await categoryChooser.expand();
     await categoryChooser.selectRowByValue(2);
 
-    await selectKit(".toolbar-popup-menu-options").expand();
-    const buttonSelector = `.select-kit-row[data-name='${i18n(
+    const buttonSelector = `.dropdown-menu__item .btn[title='${i18n(
       themePrefix("insert_scrollable_content")
     )}']`;
-
-    assert.dom(buttonSelector).exists("it shows the composer button");
     await click(buttonSelector);
 
     assert
