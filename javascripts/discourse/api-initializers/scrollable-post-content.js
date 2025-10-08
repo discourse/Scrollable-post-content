@@ -1,7 +1,7 @@
 import { apiInitializer } from "discourse/lib/api";
 import I18n from "discourse-i18n";
 
-export default apiInitializer("1.14.0", (api) => {
+export default apiInitializer((api) => {
   // This is a hack as applySurround expects a top level
   // composer key, not possible from a theme.
   const currentLocale = I18n.currentLocale();
